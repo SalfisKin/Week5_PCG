@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    public float attackCooldown;
+
+    private float attackCooldownTimer;
+
     private GameObject hitbox;
 
     float dashTime = float.PositiveInfinity;
@@ -26,13 +30,24 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        attackCooldownTimer = 0;rb = GetComponent<Rigidbody2D>();
         hitbox = transform.Find("HitBox").gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
+        attackCooldownTimer -= Time.deltaTime;
+
+        if(Input.GetButton("Fire1") && attackCooldownTimer <0)
+        {
+            Debug.Log("Player attack!");
+            animator.SetTrigger("Attack");
+            attackCooldownTimer = attackCooldown;
+
+            StartCoroutine(Attack());
+        }
+
         dashTime += Time.deltaTime;
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
@@ -82,4 +97,30 @@ public class PlayerController : MonoBehaviour
         isMoving = false;
 
     }
+
+
+    public Vector3 AttackOffset;
+    public float AttackRange;
+    public LayerMask attackMask;
+
+    public int damage;
+
+    IEnumerator Attack()
+    {
+        Debug.Log("Player Tried Attack");
+        yield return new WaitForSeconds(0.2f);
+        
+        Vector3 pos = transform.position;
+        pos += transform.right * AttackOffset.x;
+        pos += transform.up * AttackOffset.y;
+
+        Collider2D colInfo = Physics2D.OverlapCircle(pos, AttackRange, attackMask);
+        if(colInfo != null)
+        {
+            var healthComp = colInfo.GetComponent<MonsterHealth>();
+            if(healthComp != null)
+                healthComp.takeDamage(damage);
+        }
+    }
+    
 }

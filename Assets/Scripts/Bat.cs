@@ -36,7 +36,7 @@ public class Bat : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Tried Attack");
+        Debug.Log("Bat Tried Attack");
         Vector3 pos = transform.position;
         pos += transform.right * AttackOffset.x;
         pos += transform.up * AttackOffset.y;
@@ -45,16 +45,27 @@ public class Bat : MonoBehaviour
         if (colInfo != null)
         {
             //Damage the player!
-            Debug.Log("Attack hit on player!");
-            colInfo.GetComponent<PlayerHealth>().takeDamage(damage);
+            Debug.Log("Bat Attack hit on player!");
+            var healthComp = colInfo.GetComponent<PlayerHealth>();
+            if(healthComp != null)
+                healthComp.takeDamage(damage);
         }
     }
 
+    
+
+    void Die()
+    {
+        Debug.Log("Bat died!");
+        Destroy(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        var healthComp = GetComponent<MonsterHealth>();
+        healthComp.onDeath += Die;
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
