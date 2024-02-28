@@ -42,7 +42,7 @@ public class BatRun : StateMachineBehaviour
         
         if (distance<AttackRange)
         {
-            //animator.SetTrigger("Attack");
+            animator.SetTrigger("Attack");
         }
 
         
@@ -52,7 +52,7 @@ public class BatRun : StateMachineBehaviour
     //OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       //animator.ResetTrigger("Attack");
+       animator.ResetTrigger("Attack");
     }
 
 }

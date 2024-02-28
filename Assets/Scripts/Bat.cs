@@ -26,6 +26,28 @@ public class Bat : MonoBehaviour
 			isFlipped = true;
 		}
 	}
+
+    public Vector3 AttackOffset;
+    public float AttackRange;
+    public LayerMask attackMask;
+
+    public void Attack()
+    {
+        Debug.Log("Tried Attack");
+        Vector3 pos = transform.position;
+        pos += transform.right * AttackOffset.x;
+        pos += transform.up * AttackOffset.y;
+
+        Collider2D colInfo = Physics2D.OverlapCircle(pos, AttackRange, attackMask);
+        if(colInfo != null)
+        {
+            //Damage the player!
+            Debug.Log("Attack hit on player!");
+            colInfo.GetComponent<PlayerHealth>().takeDamage(10);
+        }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
