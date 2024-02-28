@@ -102,6 +102,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   isFlipped: 0
+  AttackOffset: {x: 0, y: 0, z: 0}
+  AttackRange: 1
+  attackMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  damage: 30
 --- !u!95 &6860135306339576675
 Animator:
   serializedVersion: 5

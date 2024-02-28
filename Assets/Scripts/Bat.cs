@@ -31,6 +31,8 @@ public class Bat : MonoBehaviour
     public float AttackRange;
     public LayerMask attackMask;
 
+    public int damage;
+
     public void Attack()
     {
         Debug.Log("Tried Attack");
@@ -43,7 +45,7 @@ public class Bat : MonoBehaviour
         {
             //Damage the player!
             Debug.Log("Attack hit on player!");
-            colInfo.GetComponent<PlayerHealth>().takeDamage(10);
+            colInfo.GetComponent<PlayerHealth>().takeDamage(damage);
         }
     }
 
