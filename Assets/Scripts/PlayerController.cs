@@ -51,6 +51,11 @@ public class PlayerController : MonoBehaviour
             dashTime = 0f;
         }
 
+        if (Input.GetButton("Dash"))
+        {
+
+        }
+
         if (dashTime <= 0.1f)
         {
             rb.position += (Vector2)transform.up * Time.deltaTime * 20;

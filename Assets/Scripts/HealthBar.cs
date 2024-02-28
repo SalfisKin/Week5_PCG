@@ -25,6 +25,7 @@ public class HealthBar : MonoBehaviour
     void Start()
     {
         tmp = GetComponent<TextMeshProUGUI>();
+        
     }
 
     // Update is called once per frame

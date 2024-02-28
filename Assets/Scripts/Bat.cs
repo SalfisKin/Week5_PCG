@@ -27,6 +27,7 @@ public class Bat : MonoBehaviour
 		}
 	}
 
+    Rigidbody2D rb;
     public Vector3 AttackOffset;
     public float AttackRange;
     public LayerMask attackMask;
@@ -41,7 +42,7 @@ public class Bat : MonoBehaviour
         pos += transform.up * AttackOffset.y;
 
         Collider2D colInfo = Physics2D.OverlapCircle(pos, AttackRange, attackMask);
-        if(colInfo != null)
+        if (colInfo != null)
         {
             //Damage the player!
             Debug.Log("Attack hit on player!");
@@ -54,6 +55,7 @@ public class Bat : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
